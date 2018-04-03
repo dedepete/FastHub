@@ -68,13 +68,9 @@ public class TimelineProvider {
                     appendReviews(issueEventModel, event, spannableBuilder, from, issueEventModel.getReviewRequester());
                 } else if (event == IssueEventType.closed || event == IssueEventType.reopened) {
                     if (isMerged) {
-                        spannableBuilder.append(" ").append(IssueEventType.merged.name());
+                        spannableBuilder.append(String.format(" %s", IssueEventType.merged.name()));
                     } else {
-                        spannableBuilder
-                                .append(" ")
-                                .append(event.name().replaceAll("_", " "))
-                                .append(" ")
-                                .append(thisString);
+                        spannableBuilder.append(String.format(" %1$s %2$s", event.name().replaceAll("_", " "), thisString));
                     }
                     if (issueEventModel.getCommitId() != null) {
                         spannableBuilder
@@ -92,8 +88,7 @@ public class TimelineProvider {
                                 .append(event == IssueEventType.assigned ? "self-assigned this" : "removed their assignment");
                     } else {
                         spannableBuilder
-                                .append(event == IssueEventType.assigned ? "assigned" : "unassigned");
-                        spannableBuilder
+                                .append(event == IssueEventType.assigned ? "assigned" : "unassigned")
                                 .append(" ")
                                 .bold(issueEventModel.getAssignee() != null ? issueEventModel.getAssignee().getLogin() : "");
                     }
