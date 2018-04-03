@@ -38,9 +38,4 @@ cache:
     - $HOME/.android/build-cache
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
-
-notifications:
-  email: false
-  webhooks: https://www.travisbuddy.com/
-  on_success: never
+  - curl --upload-file ./app/build/outputs/apk/debug/app-debug.apk https://transfer.sh
